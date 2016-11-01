@@ -1,0 +1,39 @@
+{
+  "name": "react-scrollmonitor",
+  "version": "1.0.0",
+  "description": "React HOC for the scrollMonitor",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://stutrek@github.com/stutrek/react-scrollmonitor.git"
+  },
+  "keywords": [
+    "scroll",
+    "events",
+    "scrollmonitor",
+    "react"
+  ],
+  "author": "Stu Kabakoff <sakabako@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stutrek/react-scrollmonitor/issues"
+  },
+  "homepage": "https://github.com/stutrek/react-scrollmonitor#readme",
+  "dependencies": {
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "scrollmonitor": "^1.1.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.2.1",
+    "babel-loader": "^6.2.0",
+    "babel-plugin-transform-object-assign": "^6.8.0",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babel-preset-stage-0": "^6.5.0",
+    "webpack": "^1.13.1"
+  }
+}
