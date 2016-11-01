@@ -1,4 +1,4 @@
-# React-ScrollMonitor
+# ScrollMonitor-React
 
 This is a React component that provides an API to the [scrollMonitor](https://github.com/stutrek/scrollMonitor).
 
@@ -9,14 +9,14 @@ It can call methods when a watched element enters or exits the viewport and adds
 Include it in your project
 
 ```
-npm install react-scrollmonitor
+npm install scrollmonitor-react
 ```
 
 Then use it to wrap your own component.
 
-```
+```javascript
 import React from 'react';
-import Watch from 'react-scrollmonitor';
+import Watch from 'scrollmonitor-react';
 
 export default Watch(class MyComponent extends React.Component {
 	render () {
@@ -34,7 +34,7 @@ export default Watch(class MyComponent extends React.Component {
 
 You can also pass methods with the scrollMonitor event names as props to your component.
 
-```
+```javascript
 import React from 'react';
 
 import MyComponent from './the/example/above';
