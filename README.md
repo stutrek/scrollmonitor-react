@@ -16,9 +16,18 @@ Then use it to wrap your own component.
 
 ```javascript
 import React from 'react';
-import Watch from 'scrollmonitor-react';
+import { Watch, ScrollContainer } from 'scrollmonitor-react';
 
 export default Watch(class MyComponent extends React.Component {
+
+	componentWillReceiveProps (props) {
+		if (props.watcherShouldLock) {
+			this.props.lockWatcher();
+		} else {
+			this.props.unlockWatcher();
+		}
+	}
+
 	render () {
 		var text;
 		if (this.props.isInViewport) {
@@ -50,3 +59,60 @@ export default MyParentComponent extends React.Component {
 	}
 }
 ```
+
+If you have a scroll container, use the scroll container component.
+
+```javascript
+import React from 'react';
+import { render } from 'react-dom';
+import { ScrollContainer, Watch } from 'scrollmonitor-react/index';
+
+// Your component works just like it does above
+class Box extends React.Component {
+	render () {
+		var style = {}
+		if (this.props.isAboveViewport) {
+			style.backgroundColor = '#ffc';
+		} else if (this.props.isBelowViewport) {
+			style.backgroundColor = '#ccf';
+		}
+
+		return (<span className="box" style={style}>{this.props.children}</span>);
+	}
+}
+
+var WatchedBox = Watch(Box);
+
+// Your container gets this.props.scrollContainer, which it must pass to the child components.
+var Container = ScrollContainer(ContainerComponent extends React.Component {
+	render () {
+	i = 1;
+		return (<div className="container-scroll">
+			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
+			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
+			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
+			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
+			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
+			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
+			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
+			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
+			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
+			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
+			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
+			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
+			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
+			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
+			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
+			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
+			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
+			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
+			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
+			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
+			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
+			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
+		</div>);
+	}
+}
+```
+
+

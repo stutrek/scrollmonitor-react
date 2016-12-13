@@ -1,0 +1,38 @@
+{
+  "name": "bare-bones-react-setup",
+  "description": "a minimal react boilerplate",
+  "version": "0.0.1",
+  "author": {
+    "name": "Zac Anger",
+    "email": "zac@zacanger.com",
+    "url": "http://zacanger.com"
+  },
+  "license": "WTFPL",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server"
+  },
+  "homepage": "https://github.com/zacanger/react-bits#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zacanger/react-bits.git"
+  },
+  "bugs": "https://github.com/zacanger/react-bits/issues",
+  "keywords": [
+    "boilerplate",
+    "react"
+  ],
+  "dependencies": {
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "scrollmonitor-react": "../",
+    "webpack-dev-server": "^1.16.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.20.0",
+    "babel-loader": "^6.2.9",
+    "babel-preset-latest": "^6.16.0",
+    "babel-preset-react": "^6.16.0",
+    "webpack": "^1.14.0"
+  }
+}
