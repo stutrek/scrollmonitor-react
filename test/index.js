@@ -18,7 +18,7 @@ class Box extends React.Component {
 class ContainerComponent extends React.Component {
 	render () {
 		console.log('in here', this);
-		var boxes = (new Array(20)).join().split(',').map((a, i) => (<WatchedBox key={i} scrollContainer={this.props.scrollContainer}>{i}</WatchedBox>));
+		var boxes = (new Array(500)).join().split(',').map((a, i) => (<WatchedBox key={i} scrollContainer={this.props.scrollContainer}>{i}</WatchedBox>));
 		return (<div className="container-scroll">{boxes}</div>);
 	}
 }
@@ -27,7 +27,7 @@ var WatchedBox = Watch(Box);
 var Container = ScrollContainer(ContainerComponent);
 
 
-var boxes = (new Array(20)).join().split(',').map((a, i) => (<WatchedBox key={i}>{i}</WatchedBox>));
+var boxes = (new Array(500)).join().split(',').map((a, i) => (<WatchedBox key={i}>{i}</WatchedBox>));
 console.log(boxes);
 const App = () => (<div>
   <h1>scrollmonitor-react test</h1>
