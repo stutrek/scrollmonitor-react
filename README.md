@@ -20,6 +20,7 @@ import { Watch, ScrollContainer } from 'scrollmonitor-react';
 
 export default Watch(class MyComponent extends React.Component {
 
+	// This part is optional, see Locking on the scrollMonitor's readme.
 	componentWillReceiveProps (props) {
 		if (props.watcherShouldLock) {
 			this.props.lockWatcher();
