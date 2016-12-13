@@ -86,7 +86,7 @@ var WatchedBox = Watch(Box);
 // Your container gets this.props.scrollContainer, which it must pass to the child components.
 var Container = ScrollContainer(ContainerComponent extends React.Component {
 	render () {
-	i = 1;
+		i = 1;
 		return (<div className="container-scroll">
 			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
 			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
