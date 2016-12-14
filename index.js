@@ -99,13 +99,14 @@ export const Watch = (Component) => class WatchedComponent extends React.Compone
 
 	render () {
 		return (<Component
+			{...{}}
+			{...this.props}
 			isInViewport={this.state.isInViewport}
 			isAboveViewport={this.state.isAboveViewport}
 			isBelowViewport={this.state.isBelowViewport}
 			isFullyInViewport={this.state.isFullyInViewport}
 			lockWatcher={this.lockWatcher}
 			unlockWatcher={this.unlockWatcher}
-			{...this.props}
 		>
 			{this.props.children}
 		</Component>);

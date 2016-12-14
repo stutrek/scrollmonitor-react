@@ -7,6 +7,7 @@ module.exports = {
   resolve: {
     extensions: ['', '.js']
   },
+  devtool: 'sourcemap',
   module: {
     loaders: [
       {
