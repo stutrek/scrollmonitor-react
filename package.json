@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "files": "dist/index.js",
   "scripts": {
-    "build": "babel index.js -d dist"
+    "build": "babel index.js -d dist --source-maps"
   },
   "repository": {
     "type": "git",

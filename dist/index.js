@@ -146,6 +146,11 @@ var Watch = exports.Watch = function Watch(Component) {
 				});
 			}
 		}, {
+			key: 'componentWillUnmount',
+			value: function componentWillUnmount() {
+				this.watcher.destroy();
+			}
+		}, {
 			key: 'lockWatcher',
 			value: function lockWatcher() {
 				this.watcher.lock();
@@ -176,3 +181,4 @@ var Watch = exports.Watch = function Watch(Component) {
 		return WatchedComponent;
 	}(_react2.default.Component);
 };
+//# sourceMappingURL=index.js.map
