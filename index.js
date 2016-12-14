@@ -89,6 +89,10 @@ export const Watch = (Component) => class WatchedComponent extends React.Compone
 		});
 	}
 
+	componentWillUnmount () {
+		this.watcher.destroy()
+	}
+
 	lockWatcher () {
 		this.watcher.lock();
 	}
