@@ -57,8 +57,10 @@ export default MyParentComponent extends React.Component {
 
 * `this.props.isInViewport` - true if any part of the element is visible, false if not.
 * `this.props.isFullyInViewport` - true if the entire element is visible [1].
-* `this.props.isAboveViewport` - true if any part of the element is above the viewport
+* `this.props.isAboveViewport` - true if any part of the element is above the viewport.
 * `this.props.isBelowViewport` - true if any part of the element is below the viewport.
+* `this.props.lockWatcher()` - locks the watcher letting you move the element but watch the same place. See the scrollMonitor's documentation for more info.
+* `this.props.unlockWatcher()` - unlocks the watcher.
 
 _1. If the element is larger than the viewport `isFullyInViewport` is true when the element spans the entire viewport._
 
