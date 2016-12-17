@@ -1,33 +1,19 @@
 # ScrollMonitor-React
 
-This is a React component that provides an API to the [scrollMonitor](https://github.com/stutrek/scrollMonitor).
+This is a React component that provides an API to the [scrollMonitor](https://github.com/stutrek/scrollMonitor). It lets you create both watchers and scroll containers.
 
-It can call methods when a watched element enters or exits the viewport and adds `isInViewport`, `isAboveViewport`, `isBelowViewport`, and `isFullyInViewport` to `this.props`.
+It adds all the boolean properties from a watcher to `this.props` and takes all the method properties as properties.
 
-## Usage
+Scrollmonitor-react is two higher order components. They're functions that your pass an original component and receive a new component that adds functionality to the original.
 
-Include it in your project
+## Basic Usage
 
-```
-npm install scrollmonitor-react
-```
-
-Then use it to wrap your own component.
-
+### Knowing when you're in the viewport
 ```javascript
 import React from 'react';
-import { Watch, ScrollContainer } from 'scrollmonitor-react';
+import { Watch } from 'scrollmonitor-react';
 
 export default Watch(class MyComponent extends React.Component {
-
-	// This part is optional, see Locking on the scrollMonitor's readme.
-	componentWillReceiveProps (props) {
-		if (props.watcherShouldLock) {
-			this.props.lockWatcher();
-		} else {
-			this.props.unlockWatcher();
-		}
-	}
 
 	render () {
 		var text;
@@ -37,17 +23,21 @@ export default Watch(class MyComponent extends React.Component {
 			text = 'You will never see this because it gets replaced when it enters the viewport.'
 		}
 
-		return (<span>{text}</span>);
+		return (<span>
+			{text}
+			{this.props.children}
+		</span>);
 	}
 });
 ```
+### Doing something when it enters or exits the viewport
 
-You can also pass methods with the scrollMonitor event names as props to your component.
+Provide methods with the scrollMonitor event names as props to your component.
 
 ```javascript
 import React from 'react';
 
-import MyComponent from './the/example/above';
+import MyWatchedComponent from './the/example/above';
 
 export default MyParentComponent extends React.Component {
 	
@@ -56,61 +46,58 @@ export default MyParentComponent extends React.Component {
 	}
 
 	render () {
-		return (<MyComponent stateChange={this.receiveStateChange} />)
+		return (<MyWatchedComponent stateChange={this.receiveStateChange} />)
 	}
 }
 ```
 
-If you have a scroll container, use the scroll container component.
+## API
+
+### `this.props` provided to the component
+
+* `this.props.isInViewport` - true if any part of the element is visible, false if not.
+* `this.props.isFullyInViewport` - true if the entire element is visible [1].
+* `this.props.isAboveViewport` - true if any part of the element is above the viewport.
+* `this.props.isBelowViewport` - true if any part of the element is below the viewport.
+
+1. If the element is larger than the viewport `isFullyInViewport` is true when the element spans the entire viewport.
+
+### Propeties you provide to the component
+
+```javascript
+<MyWatchedComponent
+	stateChange={() => {}} // Called when any part of the state changes.
+	visibilityChange={() => {}} // when the element partially enters or fully exits the viewport.
+	enterViewport={() => {}} // when the element enters the viewport.
+	fullyEnterViewport={() => {}} // when the element is completely in the viewport [1].
+	exitViewport={() => {}} // when the element completely leaves the viewport.
+	partiallyExitViewport={() => {}} // when the element goes from being fully in the viewport to only partially [2]
+>
+	<h1>Child components are fine too.</h1>
+</YourWatchedComponent>
+```
+
+1. If the element is larger than the viewport `fullyEnterViewport` will be triggered when the element spans the entire viewport.
+2. If the element is larger than the viewport `partiallyExitViewport` will be triggered when the element no longer spans the entire viewport.
+
+## Scroll Containers
+
+The `ScrollContainer` HOC lets you create scrollMonitor Scroll Containers. It provides a scroll container on `this.props` that it must pass to its children.
 
 ```javascript
 import React from 'react';
 import { render } from 'react-dom';
-import { ScrollContainer, Watch } from 'scrollmonitor-react/index';
+import { ScrollContainer } from 'scrollmonitor-react/index';
 
-// Your component works just like it does above
-class Box extends React.Component {
-	render () {
-		var style = {}
-		if (this.props.isAboveViewport) {
-			style.backgroundColor = '#ffc';
-		} else if (this.props.isBelowViewport) {
-			style.backgroundColor = '#ccf';
-		}
-
-		return (<span className="box" style={style}>{this.props.children}</span>);
-	}
-}
-
-var WatchedBox = Watch(Box);
+import MyWatchedContainer from 'the/example/above';
 
 // Your container gets this.props.scrollContainer, which it must pass to the child components.
 var Container = ScrollContainer(ContainerComponent extends React.Component {
 	render () {
 		i = 1;
 		return (<div className="container-scroll">
-			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
-			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
-			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
-			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
-			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
-			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
-			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
-			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
-			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
-			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
-			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
-			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
-			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
-			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
-			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
-			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
-			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
-			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
-			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
-			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
-			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
-			<WatchedBox scrollContainer={this.props.scrollContainer}>{i++}</WatchedBox>
+			<MyWatchedContainer scrollContainer={this.props.scrollContainer}>{i++}</MyWatchedContainer>
+			{...times a million}
 		</div>);
 	}
 }
