@@ -30,7 +30,7 @@ export default Watch(class MyComponent extends React.Component {
 	}
 });
 ```
-### Doing something when it enters or exits the viewport
+### Doing something when a watched child enters or exits the viewport
 
 Provide methods with the scrollMonitor event names as props to your component.
 
