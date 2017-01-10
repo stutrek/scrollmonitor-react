@@ -79,6 +79,14 @@ var Watch = exports.Watch = function Watch(Component) {
 
 			var _this2 = _possibleConstructorReturn(this, (WatchedComponent.__proto__ || Object.getPrototypeOf(WatchedComponent)).call(this));
 
+			_this2.lockWatcher = function () {
+				_this2.watcher.lock();
+			};
+
+			_this2.unlockWatcher = function () {
+				_this2.watcher.unlock();
+			};
+
 			_this2.state = {
 				isInViewport: false,
 				isAboveViewport: false,
@@ -149,16 +157,6 @@ var Watch = exports.Watch = function Watch(Component) {
 			key: 'componentWillUnmount',
 			value: function componentWillUnmount() {
 				this.watcher.destroy();
-			}
-		}, {
-			key: 'lockWatcher',
-			value: function lockWatcher() {
-				this.watcher.lock();
-			}
-		}, {
-			key: 'unlockWatcher',
-			value: function unlockWatcher() {
-				this.watcher.unlock();
 			}
 		}, {
 			key: 'render',
