@@ -93,11 +93,11 @@ export const Watch = (Component) => class WatchedComponent extends React.Compone
 		this.watcher.destroy()
 	}
 
-	lockWatcher () {
+	lockWatcher = () => {
 		this.watcher.lock();
 	}
 
-	unlockWatcher () {
+	unlockWatcher = () => {
 		this.watcher.unlock();
 	}
 
