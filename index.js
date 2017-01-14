@@ -30,7 +30,7 @@ export const ScrollContainer = (Component) => class ScrollMonitorContainer exten
 	}
 };
 
-export const Watch = (Component) => class WatchedComponent extends React.Component {
+export const Watch = (Component, lazy = false) => class WatchedComponent extends React.Component {
 
 	constructor () {
 		super();
@@ -71,7 +71,9 @@ export const Watch = (Component) => class WatchedComponent extends React.Compone
 	}
 
 	componentDidMount () {
-		this.createWatcher(this.props);
+		if (!lazy) {
+			this.createWatcher(this.props);
+		}
 	}
 
 	componentWillReceiveProps (nextProps) {
@@ -102,6 +104,14 @@ export const Watch = (Component) => class WatchedComponent extends React.Compone
 		this.watcher.unlock();
 	};
 
+	initWatcher = () => {
+		this.createWatcher(this.props);
+	};
+
+	destroyWatcher = () => {
+		this.watcher.destroy();
+	};
+
 	render () {
 		return (<Component
 			{...{}}
@@ -112,6 +122,8 @@ export const Watch = (Component) => class WatchedComponent extends React.Compone
 			isFullyInViewport={this.state.isFullyInViewport}
 			lockWatcher={this.lockWatcher}
 			unlockWatcher={this.unlockWatcher}
+			initWatcher={this.initWatcher}
+			destroyWatcher={this.destroyWatcher}
 		>
 			{this.props.children}
 		</Component>);
