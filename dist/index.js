@@ -71,6 +71,7 @@ var ScrollContainer = exports.ScrollContainer = function ScrollContainer(Compone
 };
 
 var Watch = exports.Watch = function Watch(Component) {
+	var lazy = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 	return function (_React$Component2) {
 		_inherits(WatchedComponent, _React$Component2);
 
@@ -85,6 +86,14 @@ var Watch = exports.Watch = function Watch(Component) {
 
 			_this2.unlockWatcher = function () {
 				_this2.watcher.unlock();
+			};
+
+			_this2.initWatcher = function () {
+				_this2.createWatcher(_this2.props);
+			};
+
+			_this2.destroyWatcher = function () {
+				_this2.watcher.destroy();
 			};
 
 			_this2.state = {
@@ -131,24 +140,27 @@ var Watch = exports.Watch = function Watch(Component) {
 		}, {
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				this.createWatcher(this.props);
+				if (!lazy) {
+					this.createWatcher(this.props);
+				}
 			}
 		}, {
 			key: 'componentWillReceiveProps',
-			value: function componentWillReceiveProps(props) {
+			value: function componentWillReceiveProps(nextProps) {
 				var _this4 = this;
 
-				if (this.props.scrollContainer !== props.scrollContainer) {
+				if (this.props.scrollContainer !== nextProps.scrollContainer) {
 					this.watcher.destroy();
-					this.createWatcher(props);
+					this.createWatcher(nextProps);
 				}
+
 				_scrollmonitor2.default.eventTypes.forEach(function (type) {
-					if (props[type] && !_this4.props[type]) {
+					if (nextProps[type] && !_this4.props[type]) {
 						_this4.listeners[type] = function () {
 							return _this4.props[type](_this4.watcher);
 						};
 						_this4.watcher.on(type, _this4.listeners[type]);
-					} else if (!props[type] && _this4.props[type]) {
+					} else if (!nextProps[type] && _this4.props[type]) {
 						_this4.watcher.off(type, _this4.listeners[type]);
 					}
 				});
@@ -169,7 +181,9 @@ var Watch = exports.Watch = function Watch(Component) {
 						isBelowViewport: this.state.isBelowViewport,
 						isFullyInViewport: this.state.isFullyInViewport,
 						lockWatcher: this.lockWatcher,
-						unlockWatcher: this.unlockWatcher
+						unlockWatcher: this.unlockWatcher,
+						initWatcher: this.initWatcher,
+						destroyWatcher: this.destroyWatcher
 					}),
 					this.props.children
 				);
