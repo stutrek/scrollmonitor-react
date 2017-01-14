@@ -105,11 +105,15 @@ export const Watch = (Component, lazy = false) => class WatchedComponent extends
 	};
 
 	initWatcher = () => {
-		this.createWatcher(this.props);
+		if (lazy && !this.watcher) {
+			this.createWatcher(this.props);
+		}
 	};
 
 	destroyWatcher = () => {
-		this.watcher.destroy();
+		if (lazy && this.watcher) {
+			this.watcher.destroy();
+		}
 	};
 
 	render () {
