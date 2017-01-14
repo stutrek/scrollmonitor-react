@@ -74,16 +74,17 @@ export const Watch = (Component) => class WatchedComponent extends React.Compone
 		this.createWatcher(this.props);
 	}
 
-	componentWillReceiveProps (props) {
-		if (this.props.scrollContainer !== props.scrollContainer) {
+	componentWillReceiveProps (nextProps) {
+		if (this.props.scrollContainer !== nextProps.scrollContainer) {
 			this.watcher.destroy();
-			this.createWatcher(props);
+			this.createWatcher(nextProps);
 		}
+
 		scrollMonitor.eventTypes.forEach(type => {
-			if (props[type] && !this.props[type]) {
+			if (nextProps[type] && !this.props[type]) {
 				this.listeners[type] = () => this.props[type](this.watcher);
 				this.watcher.on(type, this.listeners[type]);
-			} else if (!props[type] && this.props[type]) {
+			} else if (!nextProps[type] && this.props[type]) {
 				this.watcher.off(type, this.listeners[type]);
 			}
 		});
