@@ -95,11 +95,11 @@ export const Watch = (Component) => class WatchedComponent extends React.Compone
 
 	lockWatcher = () => {
 		this.watcher.lock();
-	}
+	};
 
 	unlockWatcher = () => {
 		this.watcher.unlock();
-	}
+	};
 
 	render () {
 		return (<Component
