@@ -89,11 +89,15 @@ var Watch = exports.Watch = function Watch(Component) {
 			};
 
 			_this2.initWatcher = function () {
-				_this2.createWatcher(_this2.props);
+				if (lazy && !_this2.watcher) {
+					_this2.createWatcher(_this2.props);
+				}
 			};
 
 			_this2.destroyWatcher = function () {
-				_this2.watcher.destroy();
+				if (lazy && _this2.watcher) {
+					_this2.watcher.destroy();
+				}
 			};
 
 			_this2.state = {
