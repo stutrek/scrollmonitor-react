@@ -4,7 +4,7 @@ This is a React component that provides an API to the [scrollMonitor](https://gi
 
 It adds all the boolean properties from a watcher to `this.props` and takes all the method properties as properties.
 
-Scrollmonitor-react is two higher order components. They're functions that your pass an original component and receive a new component that adds functionality to the original.
+Scrollmonitor-react is two higher order components. They're functions that you pass an original component and receive a new component that adds functionality to the original.
 
 ## Basic Usage
 
@@ -40,7 +40,7 @@ import React from 'react';
 import MyWatchedComponent from './the/example/above';
 
 export default MyParentComponent extends React.Component {
-	
+
 	receiveStateChange (watcher) {
 		console.log('state changed!', watcher)
 	}
@@ -113,7 +113,7 @@ _1. If the element is larger than the viewport `isFullyInViewport` is true when 
 </MyWatchedComponent>
 ```
 
-_1. If the element is larger than the viewport `fullyEnterViewport` will be triggered when the element spans the entire viewport._  
+_1. If the element is larger than the viewport `fullyEnterViewport` will be triggered when the element spans the entire viewport._
 _2. If the element is larger than the viewport `partiallyExitViewport` will be triggered when the element no longer spans the entire viewport._
 
 ## Scroll Containers
