@@ -30,7 +30,10 @@ export const ScrollContainer = (Component) => class ScrollMonitorContainer exten
 	}
 };
 
-export const Watch = (Component, lazy = false) => class WatchedComponent extends React.Component {
+export const Watch = (Component) => class WatchedComponent extends React.Component {
+	static defaultProps = {
+		autoStart: true,
+	};
 
 	constructor () {
 		super();
@@ -71,7 +74,7 @@ export const Watch = (Component, lazy = false) => class WatchedComponent extends
 	}
 
 	componentDidMount () {
-		if (!lazy) {
+		if (this.props.autoStart) {
 			this.createWatcher(this.props);
 		}
 	}
@@ -105,13 +108,13 @@ export const Watch = (Component, lazy = false) => class WatchedComponent extends
 	};
 
 	initWatcher = () => {
-		if (lazy && !this.watcher) {
+		if (!this.props.autoStart && !this.watcher) {
 			this.createWatcher(this.props);
 		}
 	};
 
 	destroyWatcher = () => {
-		if (lazy && this.watcher) {
+		if (!this.props.autoStart && this.watcher) {
 			this.watcher.destroy();
 		}
 	};
