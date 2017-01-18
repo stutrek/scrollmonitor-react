@@ -51,37 +51,9 @@ export default MyParentComponent extends React.Component {
 }
 ```
 
-### Lazy creation of the watcher
+### Avoid starting the watcher automatically
 
-By default the watcher is created on every enhanced component, but there can be situations where you want to conditionally create the watcher on a given enhanced component instead.
-
-First, you need to add a second argument with value `true` to the HoC call so it knows it's "lazy" and doesn't create the watcher automatically.
-
-Then you need to use the provided `initWatcher` and `destroyWatcher` props functions to manage the watcher when needed.
-
-```javascript
-import React from 'react';
-import { Watch } from 'scrollmonitor-react';
-
-class MyLazyWatchedComponent extends React.Component {
-	componentDidMount() {
-		if (this.props.shouldWatch) {
-			this.props.initWatcher();
-		}
-	}
-
-	componentWillReceiveProps(nextProps) {
-		if (this.props.shouldWatch && !nextProps.shouldWatch) {
-			this.props.destroyWatcher();
-		} else if (!this.props.shouldWatch && nextProps.shouldWatch) {
-			this.props.initWatcher();
-		}
-	}
-	...
-}
-
-export default Watch(MyLazyWatchedComponent, true);
-```
+By default the watcher is started on every enhanced component, but there can be situations where you want to start the watcher later so you can set the prop `autoStart` to `false` to avoid starting the watcher automatically.
 
 ## API
 
@@ -93,15 +65,16 @@ export default Watch(MyLazyWatchedComponent, true);
 * `this.props.isBelowViewport` - true if any part of the element is below the viewport.
 * `this.props.lockWatcher()` - locks the watcher letting you move the element but watch the same place. See the scrollMonitor's documentation for more info.
 * `this.props.unlockWatcher()` - unlocks the watcher.
-* `this.props.initWatcher()` - creates the watcher for lazily enhanced components
-* `this.props.destroyWatcher()` - destroys the watcher for lazily enhanced components
+* `this.props.startWatcher()` - starts the watcher if it's not running
+* `this.props.stopWatcher()` - stops the watcher if it's running
 
 _1. If the element is larger than the viewport `isFullyInViewport` is true when the element spans the entire viewport._
 
-### Propeties you provide to the component
+### Properties you provide to the component
 
 ```javascript
 <MyWatchedComponent
+	autoStart={true|false} // Decide if watcher should start when component is mounted. Default: true
 	stateChange={() => {}} // Called when any part of the state changes.
 	visibilityChange={() => {}} // when the element partially enters or fully exits the viewport.
 	enterViewport={() => {}} // when the element enters the viewport.
