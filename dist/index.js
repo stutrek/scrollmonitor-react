@@ -71,8 +71,9 @@ var ScrollContainer = exports.ScrollContainer = function ScrollContainer(Compone
 };
 
 var Watch = exports.Watch = function Watch(Component) {
-	var lazy = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-	return function (_React$Component2) {
+	var _class, _temp;
+
+	return _temp = _class = function (_React$Component2) {
 		_inherits(WatchedComponent, _React$Component2);
 
 		function WatchedComponent() {
@@ -88,14 +89,14 @@ var Watch = exports.Watch = function Watch(Component) {
 				_this2.watcher.unlock();
 			};
 
-			_this2.initWatcher = function () {
-				if (lazy && !_this2.watcher) {
+			_this2.startWatcher = function () {
+				if (!_this2.watcher) {
 					_this2.createWatcher(_this2.props);
 				}
 			};
 
-			_this2.destroyWatcher = function () {
-				if (lazy && _this2.watcher) {
+			_this2.stopWatcher = function () {
+				if (_this2.watcher) {
 					_this2.watcher.destroy();
 				}
 			};
@@ -144,7 +145,7 @@ var Watch = exports.Watch = function Watch(Component) {
 		}, {
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				if (!lazy) {
+				if (this.props.autoStart) {
 					this.createWatcher(this.props);
 				}
 			}
@@ -186,8 +187,8 @@ var Watch = exports.Watch = function Watch(Component) {
 						isFullyInViewport: this.state.isFullyInViewport,
 						lockWatcher: this.lockWatcher,
 						unlockWatcher: this.unlockWatcher,
-						initWatcher: this.initWatcher,
-						destroyWatcher: this.destroyWatcher
+						startWatcher: this.initWatcher,
+						stopWatcher: this.destroyWatcher
 					}),
 					this.props.children
 				);
@@ -195,6 +196,10 @@ var Watch = exports.Watch = function Watch(Component) {
 		}]);
 
 		return WatchedComponent;
-	}(_react2.default.Component);
+	}(_react2.default.Component), _class.propTypes = {
+		autoStart: _react2.default.PropTypes.bool
+	}, _class.defaultProps = {
+		autoStart: true
+	}, _temp;
 };
 //# sourceMappingURL=index.js.map
