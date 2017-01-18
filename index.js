@@ -112,13 +112,13 @@ export const Watch = (Component) => class WatchedComponent extends React.Compone
 	};
 
 	startWatcher = () => {
-		if (!this.props.autoStart && !this.watcher) {
+		if (!this.watcher) {
 			this.createWatcher(this.props);
 		}
 	};
 
 	stopWatcher = () => {
-		if (!this.props.autoStart && this.watcher) {
+		if (this.watcher) {
 			this.watcher.destroy();
 		}
 	};
