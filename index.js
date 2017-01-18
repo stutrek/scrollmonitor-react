@@ -107,13 +107,13 @@ export const Watch = (Component) => class WatchedComponent extends React.Compone
 		this.watcher.unlock();
 	};
 
-	initWatcher = () => {
+	startWatcher = () => {
 		if (!this.props.autoStart && !this.watcher) {
 			this.createWatcher(this.props);
 		}
 	};
 
-	destroyWatcher = () => {
+	stopWatcher = () => {
 		if (!this.props.autoStart && this.watcher) {
 			this.watcher.destroy();
 		}
@@ -129,8 +129,8 @@ export const Watch = (Component) => class WatchedComponent extends React.Compone
 			isFullyInViewport={this.state.isFullyInViewport}
 			lockWatcher={this.lockWatcher}
 			unlockWatcher={this.unlockWatcher}
-			initWatcher={this.initWatcher}
-			destroyWatcher={this.destroyWatcher}
+			startWatcher={this.initWatcher}
+			stopWatcher={this.destroyWatcher}
 		>
 			{this.props.children}
 		</Component>);
