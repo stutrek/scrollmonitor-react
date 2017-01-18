@@ -31,6 +31,10 @@ export const ScrollContainer = (Component) => class ScrollMonitorContainer exten
 };
 
 export const Watch = (Component) => class WatchedComponent extends React.Component {
+	static propTypes = {
+		autoStart: React.PropTypes.bool,
+	};
+
 	static defaultProps = {
 		autoStart: true,
 	};
