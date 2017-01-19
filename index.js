@@ -31,6 +31,13 @@ export const ScrollContainer = (Component) => class ScrollMonitorContainer exten
 };
 
 export const Watch = (Component) => class WatchedComponent extends React.Component {
+	static propTypes = {
+		autoStart: React.PropTypes.bool,
+	};
+
+	static defaultProps = {
+		autoStart: true,
+	};
 
 	constructor () {
 		super();
@@ -71,19 +78,22 @@ export const Watch = (Component) => class WatchedComponent extends React.Compone
 	}
 
 	componentDidMount () {
-		this.createWatcher(this.props);
+		if (this.props.autoStart) {
+			this.createWatcher(this.props);
+		}
 	}
 
-	componentWillReceiveProps (props) {
-		if (this.props.scrollContainer !== props.scrollContainer) {
+	componentWillReceiveProps (nextProps) {
+		if (this.props.scrollContainer !== nextProps.scrollContainer) {
 			this.watcher.destroy();
-			this.createWatcher(props);
+			this.createWatcher(nextProps);
 		}
+
 		scrollMonitor.eventTypes.forEach(type => {
-			if (props[type] && !this.props[type]) {
+			if (nextProps[type] && !this.props[type]) {
 				this.listeners[type] = () => this.props[type](this.watcher);
 				this.watcher.on(type, this.listeners[type]);
-			} else if (!props[type] && this.props[type]) {
+			} else if (!nextProps[type] && this.props[type]) {
 				this.watcher.off(type, this.listeners[type]);
 			}
 		});
@@ -95,11 +105,23 @@ export const Watch = (Component) => class WatchedComponent extends React.Compone
 
 	lockWatcher = () => {
 		this.watcher.lock();
-	}
+	};
 
 	unlockWatcher = () => {
 		this.watcher.unlock();
-	}
+	};
+
+	startWatcher = () => {
+		if (!this.watcher) {
+			this.createWatcher(this.props);
+		}
+	};
+
+	stopWatcher = () => {
+		if (this.watcher) {
+			this.watcher.destroy();
+		}
+	};
 
 	render () {
 		return (<Component
@@ -111,6 +133,8 @@ export const Watch = (Component) => class WatchedComponent extends React.Compone
 			isFullyInViewport={this.state.isFullyInViewport}
 			lockWatcher={this.lockWatcher}
 			unlockWatcher={this.unlockWatcher}
+			startWatcher={this.initWatcher}
+			stopWatcher={this.destroyWatcher}
 		>
 			{this.props.children}
 		</Component>);

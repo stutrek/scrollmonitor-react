@@ -71,7 +71,9 @@ var ScrollContainer = exports.ScrollContainer = function ScrollContainer(Compone
 };
 
 var Watch = exports.Watch = function Watch(Component) {
-	return function (_React$Component2) {
+	var _class, _temp;
+
+	return _temp = _class = function (_React$Component2) {
 		_inherits(WatchedComponent, _React$Component2);
 
 		function WatchedComponent() {
@@ -85,6 +87,18 @@ var Watch = exports.Watch = function Watch(Component) {
 
 			_this2.unlockWatcher = function () {
 				_this2.watcher.unlock();
+			};
+
+			_this2.startWatcher = function () {
+				if (!_this2.watcher) {
+					_this2.createWatcher(_this2.props);
+				}
+			};
+
+			_this2.stopWatcher = function () {
+				if (_this2.watcher) {
+					_this2.watcher.destroy();
+				}
 			};
 
 			_this2.state = {
@@ -131,24 +145,27 @@ var Watch = exports.Watch = function Watch(Component) {
 		}, {
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				this.createWatcher(this.props);
+				if (this.props.autoStart) {
+					this.createWatcher(this.props);
+				}
 			}
 		}, {
 			key: 'componentWillReceiveProps',
-			value: function componentWillReceiveProps(props) {
+			value: function componentWillReceiveProps(nextProps) {
 				var _this4 = this;
 
-				if (this.props.scrollContainer !== props.scrollContainer) {
+				if (this.props.scrollContainer !== nextProps.scrollContainer) {
 					this.watcher.destroy();
-					this.createWatcher(props);
+					this.createWatcher(nextProps);
 				}
+
 				_scrollmonitor2.default.eventTypes.forEach(function (type) {
-					if (props[type] && !_this4.props[type]) {
+					if (nextProps[type] && !_this4.props[type]) {
 						_this4.listeners[type] = function () {
 							return _this4.props[type](_this4.watcher);
 						};
 						_this4.watcher.on(type, _this4.listeners[type]);
-					} else if (!props[type] && _this4.props[type]) {
+					} else if (!nextProps[type] && _this4.props[type]) {
 						_this4.watcher.off(type, _this4.listeners[type]);
 					}
 				});
@@ -169,7 +186,9 @@ var Watch = exports.Watch = function Watch(Component) {
 						isBelowViewport: this.state.isBelowViewport,
 						isFullyInViewport: this.state.isFullyInViewport,
 						lockWatcher: this.lockWatcher,
-						unlockWatcher: this.unlockWatcher
+						unlockWatcher: this.unlockWatcher,
+						startWatcher: this.initWatcher,
+						stopWatcher: this.destroyWatcher
 					}),
 					this.props.children
 				);
@@ -177,6 +196,10 @@ var Watch = exports.Watch = function Watch(Component) {
 		}]);
 
 		return WatchedComponent;
-	}(_react2.default.Component);
+	}(_react2.default.Component), _class.propTypes = {
+		autoStart: _react2.default.PropTypes.bool
+	}, _class.defaultProps = {
+		autoStart: true
+	}, _temp;
 };
 //# sourceMappingURL=index.js.map

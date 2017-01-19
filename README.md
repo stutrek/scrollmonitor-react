@@ -4,7 +4,7 @@ This is a React component that provides an API to the [scrollMonitor](https://gi
 
 It adds all the boolean properties from a watcher to `this.props` and takes all the method properties as properties.
 
-Scrollmonitor-react is two higher order components. They're functions that your pass an original component and receive a new component that adds functionality to the original.
+Scrollmonitor-react is two higher order components. They're functions that you pass an original component and receive a new component that adds functionality to the original.
 
 ## Basic Usage
 
@@ -40,7 +40,7 @@ import React from 'react';
 import MyWatchedComponent from './the/example/above';
 
 export default MyParentComponent extends React.Component {
-	
+
 	receiveStateChange (watcher) {
 		console.log('state changed!', watcher)
 	}
@@ -50,6 +50,10 @@ export default MyParentComponent extends React.Component {
 	}
 }
 ```
+
+### Avoid starting the watcher automatically
+
+By default the watcher is started on every enhanced component, but there can be situations where you want to start the watcher later so you can set the prop `autoStart` to `false` to avoid starting the watcher automatically.
 
 ## API
 
@@ -61,13 +65,16 @@ export default MyParentComponent extends React.Component {
 * `this.props.isBelowViewport` - true if any part of the element is below the viewport.
 * `this.props.lockWatcher()` - locks the watcher letting you move the element but watch the same place. See the scrollMonitor's documentation for more info.
 * `this.props.unlockWatcher()` - unlocks the watcher.
+* `this.props.startWatcher()` - starts the watcher if it's not running
+* `this.props.stopWatcher()` - stops the watcher if it's running
 
 _1. If the element is larger than the viewport `isFullyInViewport` is true when the element spans the entire viewport._
 
-### Propeties you provide to the component
+### Properties you provide to the component
 
 ```javascript
 <MyWatchedComponent
+	autoStart={true|false} // Decide if watcher should start when component is mounted. Default: true
 	stateChange={() => {}} // Called when any part of the state changes.
 	visibilityChange={() => {}} // when the element partially enters or fully exits the viewport.
 	enterViewport={() => {}} // when the element enters the viewport.
@@ -79,7 +86,7 @@ _1. If the element is larger than the viewport `isFullyInViewport` is true when 
 </MyWatchedComponent>
 ```
 
-_1. If the element is larger than the viewport `fullyEnterViewport` will be triggered when the element spans the entire viewport._  
+_1. If the element is larger than the viewport `fullyEnterViewport` will be triggered when the element spans the entire viewport._
 _2. If the element is larger than the viewport `partiallyExitViewport` will be triggered when the element no longer spans the entire viewport._
 
 ## Scroll Containers
