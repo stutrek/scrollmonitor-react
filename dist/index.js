@@ -187,8 +187,8 @@ var Watch = exports.Watch = function Watch(Component) {
 						isFullyInViewport: this.state.isFullyInViewport,
 						lockWatcher: this.lockWatcher,
 						unlockWatcher: this.unlockWatcher,
-						startWatcher: this.initWatcher,
-						stopWatcher: this.destroyWatcher
+						startWatcher: this.startWatcher,
+						stopWatcher: this.stopWatcher
 					}),
 					this.props.children
 				);
