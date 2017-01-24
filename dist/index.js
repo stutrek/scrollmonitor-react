@@ -82,16 +82,22 @@ var Watch = exports.Watch = function Watch(Component) {
 			var _this2 = _possibleConstructorReturn(this, (WatchedComponent.__proto__ || Object.getPrototypeOf(WatchedComponent)).call(this));
 
 			_this2.lockWatcher = function () {
-				_this2.watcher.lock();
+				if (_this2.watcher) {
+					_this2.watcher.lock();
+				}
 			};
 
 			_this2.unlockWatcher = function () {
-				_this2.watcher.unlock();
+				if (_this2.watcher) {
+					_this2.watcher.unlock();
+				}
 			};
 
 			_this2.startWatcher = function () {
+				var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _this2.props;
+
 				if (!_this2.watcher) {
-					_this2.createWatcher(_this2.props);
+					_this2.createWatcher(props);
 				}
 			};
 
@@ -146,7 +152,7 @@ var Watch = exports.Watch = function Watch(Component) {
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				if (this.props.autoStart) {
-					this.createWatcher(this.props);
+					this.startWatcher();
 				}
 			}
 		}, {
@@ -155,8 +161,8 @@ var Watch = exports.Watch = function Watch(Component) {
 				var _this4 = this;
 
 				if (this.props.scrollContainer !== nextProps.scrollContainer) {
-					this.watcher.destroy();
-					this.createWatcher(nextProps);
+					this.stopWatcher();
+					this.startWatcher(nextProps);
 				}
 
 				_scrollmonitor2.default.eventTypes.forEach(function (type) {
@@ -173,7 +179,7 @@ var Watch = exports.Watch = function Watch(Component) {
 		}, {
 			key: 'componentWillUnmount',
 			value: function componentWillUnmount() {
-				this.watcher.destroy();
+				this.stopWatcher();
 			}
 		}, {
 			key: 'render',

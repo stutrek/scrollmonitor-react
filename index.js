@@ -79,14 +79,14 @@ export const Watch = (Component) => class WatchedComponent extends React.Compone
 
 	componentDidMount () {
 		if (this.props.autoStart) {
-			this.createWatcher(this.props);
+			this.startWatcher();
 		}
 	}
 
 	componentWillReceiveProps (nextProps) {
 		if (this.props.scrollContainer !== nextProps.scrollContainer) {
-			this.watcher.destroy();
-			this.createWatcher(nextProps);
+			this.stopWatcher();
+			this.startWatcher(nextProps);
 		}
 
 		scrollMonitor.eventTypes.forEach(type => {
@@ -100,20 +100,24 @@ export const Watch = (Component) => class WatchedComponent extends React.Compone
 	}
 
 	componentWillUnmount () {
-		this.watcher.destroy()
+		this.stopWatcher();
 	}
 
 	lockWatcher = () => {
-		this.watcher.lock();
+		if (this.watcher) {
+			this.watcher.lock();
+		}
 	};
 
 	unlockWatcher = () => {
-		this.watcher.unlock();
+		if (this.watcher) {
+			this.watcher.unlock();
+		}
 	};
 
-	startWatcher = () => {
+	startWatcher = (props = this.props) => {
 		if (!this.watcher) {
-			this.createWatcher(this.props);
+			this.createWatcher(props);
 		}
 	};
 
