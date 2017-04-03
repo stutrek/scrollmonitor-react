@@ -184,6 +184,7 @@ var Watch = exports.Watch = function Watch(Component) {
 		}, {
 			key: 'render',
 			value: function render() {
+				var innerRef = this.props.innerRef || function () {};
 				return _react2.default.createElement(
 					Component,
 					_extends({}, this.props, {
@@ -194,7 +195,8 @@ var Watch = exports.Watch = function Watch(Component) {
 						lockWatcher: this.lockWatcher,
 						unlockWatcher: this.unlockWatcher,
 						startWatcher: this.startWatcher,
-						stopWatcher: this.stopWatcher
+						stopWatcher: this.stopWatcher,
+						ref: innerRef
 					}),
 					this.props.children
 				);
