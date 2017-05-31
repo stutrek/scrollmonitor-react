@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types'
 
 import scrollMonitor from 'scrollmonitor';
 
@@ -32,7 +33,7 @@ export const ScrollContainer = (Component) => class ScrollMonitorContainer exten
 
 export const Watch = (Component) => class WatchedComponent extends React.Component {
 	static propTypes = {
-		autoStart: React.PropTypes.bool,
+		autoStart: PropTypes.bool,
 	};
 
 	static defaultProps = {

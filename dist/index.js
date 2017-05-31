@@ -17,6 +17,10 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _scrollmonitor = require('scrollmonitor');
 
 var _scrollmonitor2 = _interopRequireDefault(_scrollmonitor);
@@ -205,7 +209,7 @@ var Watch = exports.Watch = function Watch(Component) {
 
 		return WatchedComponent;
 	}(_react2.default.Component), _class.propTypes = {
-		autoStart: _react2.default.PropTypes.bool
+		autoStart: _propTypes2.default.bool
 	}, _class.defaultProps = {
 		autoStart: true
 	}, _temp;
