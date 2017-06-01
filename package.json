@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/stutrek/scrollmonitor-react#readme",
   "dependencies": {
+    "prop-types": "^15.5.10",
     "scrollmonitor": "^1.1.1"
   },
   "devDependencies": {
