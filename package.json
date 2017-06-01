@@ -1,6 +1,6 @@
 {
   "name": "scrollmonitor-react",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "React HOC for the scrollMonitor",
   "main": "dist/index.js",
   "files": "dist/index.js",
