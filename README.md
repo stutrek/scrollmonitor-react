@@ -76,16 +76,18 @@ _1. If the element is larger than the viewport `isFullyInViewport` is true when 
 <MyWatchedComponent
 	autoStart={true|false} // Decide if watcher should start when component is mounted. Default: true
 	innerRef={(el => this.foo = el)} // allows you to gain access to the DOM element
-	stateChange={() => {}} // Called when any part of the state changes.
-	visibilityChange={() => {}} // when the element partially enters or fully exits the viewport.
-	enterViewport={() => {}} // when the element enters the viewport.
-	fullyEnterViewport={() => {}} // when the element is completely in the viewport [1].
-	exitViewport={() => {}} // when the element completely leaves the viewport.
-	partiallyExitViewport={() => {}} // when the element goes from being fully in the viewport to only partially [2]
+	stateChange={(watcher, childProps) => {}} // Called when any part of the state changes.
+	visibilityChange={(watcher, childProps) => {}} // when the element partially enters or fully exits the viewport.
+	enterViewport={(watcher, childProps) => {}} // when the element enters the viewport.
+	fullyEnterViewport={(watcher, childProps) => {}} // when the element is completely in the viewport [1].
+	exitViewport={(watcher, childProps) => {}} // when the element completely leaves the viewport.
+	partiallyExitViewport={(watcher, childProps) => {}} // when the element goes from being fully in the viewport to only partially [2]
 >
 	<h1>Child components are fine too.</h1>
 </MyWatchedComponent>
 ```
+
+All callbacks receive two arguments: the watcher and the props of the child.
 
 _1. If the element is larger than the viewport `fullyEnterViewport` will be triggered when the element spans the entire viewport._
 _2. If the element is larger than the viewport `partiallyExitViewport` will be triggered when the element no longer spans the entire viewport._

@@ -145,7 +145,7 @@ var Watch = exports.Watch = function Watch(Component) {
 				_scrollmonitor2.default.eventTypes.forEach(function (type) {
 					if (props[type]) {
 						_this3.listeners[type] = function () {
-							return _this3.props[type](_this3.watcher);
+							return _this3.props[type](_this3.watcher, _this3.props);
 						};
 						_this3.watcher.on(type, _this3.listeners[type]);
 					}

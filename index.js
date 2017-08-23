@@ -70,7 +70,7 @@ export const Watch = (Component) => class WatchedComponent extends React.Compone
 
 		scrollMonitor.eventTypes.forEach(type => {
 			if (props[type]) {
-				this.listeners[type] = () => this.props[type](this.watcher);
+				this.listeners[type] = () => this.props[type](this.watcher, this.props);
 				this.watcher.on(type, this.listeners[type]);
 			}
 		});
