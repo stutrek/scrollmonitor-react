@@ -159,6 +159,10 @@ var Watch = exports.Watch = function Watch(Component) {
 				if (this.props.autoStart) {
 					this.startWatcher();
 				}
+
+				if (this.props.innerRef) {
+					this.props.innerRef(this.watcher.watchItem, this.watcher, this.props);
+				}
 			}
 		}, {
 			key: 'componentWillReceiveProps',
@@ -189,7 +193,6 @@ var Watch = exports.Watch = function Watch(Component) {
 		}, {
 			key: 'render',
 			value: function render() {
-				var innerRef = this.props.innerRef || function () {};
 				return _react2.default.createElement(
 					Component,
 					_extends({}, this.props, {
@@ -200,8 +203,7 @@ var Watch = exports.Watch = function Watch(Component) {
 						lockWatcher: this.lockWatcher,
 						unlockWatcher: this.unlockWatcher,
 						startWatcher: this.startWatcher,
-						stopWatcher: this.stopWatcher,
-						ref: innerRef
+						stopWatcher: this.stopWatcher
 					}),
 					this.props.children
 				);

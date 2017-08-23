@@ -75,7 +75,7 @@ _1. If the element is larger than the viewport `isFullyInViewport` is true when 
 ```javascript
 <MyWatchedComponent
 	autoStart={true|false} // Decide if watcher should start when component is mounted. Default: true
-	innerRef={(el => this.foo = el)} // allows you to gain access to the DOM element
+	innerRef={(el, watcher, props) => this.foo = el} // allows you to gain access to the DOM element, the watcher, and the child's props
 	stateChange={(watcher, childProps) => {}} // Called when any part of the state changes.
 	visibilityChange={(watcher, childProps) => {}} // when the element partially enters or fully exits the viewport.
 	enterViewport={(watcher, childProps) => {}} // when the element enters the viewport.

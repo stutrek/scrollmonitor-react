@@ -82,6 +82,10 @@ export const Watch = (Component) => class WatchedComponent extends React.Compone
 		if (this.props.autoStart) {
 			this.startWatcher();
 		}
+
+		if (this.props.innerRef) {
+			this.props.innerRef(this.watcher.watchItem, this.watcher, this.props);
+		}
 	}
 
 	componentWillReceiveProps (nextProps) {
@@ -130,7 +134,6 @@ export const Watch = (Component) => class WatchedComponent extends React.Compone
 	};
 
 	render () {
-		const innerRef = this.props.innerRef || function(){};
 		return (<Component
 			{...{}}
 			{...this.props}
@@ -142,7 +145,6 @@ export const Watch = (Component) => class WatchedComponent extends React.Compone
 			unlockWatcher={this.unlockWatcher}
 			startWatcher={this.startWatcher}
 			stopWatcher={this.stopWatcher}
-			ref={innerRef}
 		>
 			{this.props.children}
 		</Component>);
