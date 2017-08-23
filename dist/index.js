@@ -108,6 +108,7 @@ var Watch = exports.Watch = function Watch(Component) {
 			_this2.stopWatcher = function () {
 				if (_this2.watcher) {
 					_this2.watcher.destroy();
+					_this2.watcher = null;
 				}
 			};
 

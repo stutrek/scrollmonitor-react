@@ -125,6 +125,7 @@ export const Watch = (Component) => class WatchedComponent extends React.Compone
 	stopWatcher = () => {
 		if (this.watcher) {
 			this.watcher.destroy();
+			this.watcher = null;
 		}
 	};
 
