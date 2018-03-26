@@ -174,6 +174,12 @@ var Watch = exports.Watch = function Watch(Component) {
 					this.startWatcher(nextProps);
 				}
 
+				if (this.props.offsets !== nextProps.offsets) {
+					Object.assign(this.watcher.offsets, nextProps.offsets);
+					this.watcher.update();
+					this.watcher.triggerCallbacks();
+				}
+
 				_scrollmonitor2.default.eventTypes.forEach(function (type) {
 					if (nextProps[type] && !_this4.props[type]) {
 						_this4.listeners[type] = function () {
@@ -195,7 +201,7 @@ var Watch = exports.Watch = function Watch(Component) {
 			value: function render() {
 				return _react2.default.createElement(
 					Component,
-					_extends({}, this.props, {
+					_extends({
 						isInViewport: this.state.isInViewport,
 						isAboveViewport: this.state.isAboveViewport,
 						isBelowViewport: this.state.isBelowViewport,
@@ -204,7 +210,7 @@ var Watch = exports.Watch = function Watch(Component) {
 						unlockWatcher: this.unlockWatcher,
 						startWatcher: this.startWatcher,
 						stopWatcher: this.stopWatcher
-					}),
+					}, this.props),
 					this.props.children
 				);
 			}

@@ -35,8 +35,8 @@
     "babel-preset-stage-0": "^6.16.0"
   },
   "peerDependencies": {
-    "react": "^15.3.2",
-    "react-dom": "^15.3.2"
+    "react": "^15.3.2 || ^16.0.0",
+    "react-dom": "^15.3.2 || ^16.0.0"
   },
   "babel": {
     "presets": [
@@ -44,43 +44,5 @@
       "react",
       "stage-0"
     ]
-  },
-  "contributors": [
-    {
-      "name": "Stu Kabakoff",
-      "email": "sakabako@gmail.com",
-      "url": "https://github.com/stutrek",
-      "contributions": 21,
-      "additions": 1013,
-      "deletions": 359,
-      "hireable": null
-    },
-    {
-      "name": "Kye Hohenberger",
-      "email": null,
-      "url": "https://github.com/tkh44",
-      "contributions": 1,
-      "additions": 4,
-      "deletions": 0,
-      "hireable": null
-    },
-    {
-      "name": "Bernardo Raposo",
-      "email": "braposo@gmail.com",
-      "url": "https://github.com/braposo",
-      "contributions": 17,
-      "additions": 2017,
-      "deletions": 83,
-      "hireable": null
-    },
-    {
-      "name": "Shergin Rodion",
-      "email": null,
-      "url": "https://github.com/beholderrk",
-      "contributions": 1,
-      "additions": 2,
-      "deletions": 2,
-      "hireable": null
-    }
-  ]
+  }
 }
