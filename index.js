@@ -94,6 +94,12 @@ export const Watch = (Component) => class WatchedComponent extends React.Compone
 			this.startWatcher(nextProps);
 		}
 
+		if (this.props.offsets !== nextProps.offsets) {
+			Object.assign(this.watcher.offsets, nextProps.offsets);
+			this.watcher.update();
+			this.watcher.triggerCallbacks();
+		}
+
 		scrollMonitor.eventTypes.forEach(type => {
 			if (nextProps[type] && !this.props[type]) {
 				this.listeners[type] = () => this.props[type](this.watcher);
