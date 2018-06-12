@@ -75,48 +75,23 @@ var ScrollContainer = exports.ScrollContainer = function ScrollContainer(Compone
 };
 
 var Watch = exports.Watch = function Watch(Component) {
-	var _class, _temp;
+	var _class, _temp, _initialiseProps;
 
 	return _temp = _class = function (_React$Component2) {
 		_inherits(WatchedComponent, _React$Component2);
 
-		function WatchedComponent() {
+		function WatchedComponent(props) {
 			_classCallCheck(this, WatchedComponent);
 
-			var _this2 = _possibleConstructorReturn(this, (WatchedComponent.__proto__ || Object.getPrototypeOf(WatchedComponent)).call(this));
+			var _this2 = _possibleConstructorReturn(this, (WatchedComponent.__proto__ || Object.getPrototypeOf(WatchedComponent)).call(this, props));
 
-			_this2.lockWatcher = function () {
-				if (_this2.watcher) {
-					_this2.watcher.lock();
-				}
-			};
-
-			_this2.unlockWatcher = function () {
-				if (_this2.watcher) {
-					_this2.watcher.unlock();
-				}
-			};
-
-			_this2.startWatcher = function () {
-				var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _this2.props;
-
-				if (!_this2.watcher) {
-					_this2.createWatcher(props);
-				}
-			};
-
-			_this2.stopWatcher = function () {
-				if (_this2.watcher) {
-					_this2.watcher.destroy();
-					_this2.watcher = null;
-				}
-			};
+			_initialiseProps.call(_this2);
 
 			_this2.state = {
-				isInViewport: false,
-				isAboveViewport: false,
-				isBelowViewport: false,
-				isFullyInViewport: false
+				isInViewport: _this2.props.initialRender.isInViewport,
+				isAboveViewport: _this2.props.initialRender.isAboveViewport,
+				isBelowViewport: _this2.props.initialRender.isBelowViewport,
+				isFullyInViewport: _this2.props.initialRender.isFullyInViewport
 			};
 			return _this2;
 		}
@@ -218,9 +193,50 @@ var Watch = exports.Watch = function Watch(Component) {
 
 		return WatchedComponent;
 	}(_react2.default.Component), _class.propTypes = {
-		autoStart: _propTypes2.default.bool
+		autoStart: _propTypes2.default.bool,
+		initialRender: _propTypes2.default.shape({
+			isInViewport: _propTypes2.default.bool,
+			isAboveViewport: _propTypes2.default.bool,
+			isBelowViewport: _propTypes2.default.bool,
+			isFullyInViewport: _propTypes2.default.bool
+		})
 	}, _class.defaultProps = {
-		autoStart: true
+		autoStart: true,
+		initialRender: {
+			isInViewport: false,
+			isAboveViewport: false,
+			isBelowViewport: false,
+			isFullyInViewport: false
+		}
+	}, _initialiseProps = function _initialiseProps() {
+		var _this5 = this;
+
+		this.lockWatcher = function () {
+			if (_this5.watcher) {
+				_this5.watcher.lock();
+			}
+		};
+
+		this.unlockWatcher = function () {
+			if (_this5.watcher) {
+				_this5.watcher.unlock();
+			}
+		};
+
+		this.startWatcher = function () {
+			var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _this5.props;
+
+			if (!_this5.watcher) {
+				_this5.createWatcher(props);
+			}
+		};
+
+		this.stopWatcher = function () {
+			if (_this5.watcher) {
+				_this5.watcher.destroy();
+				_this5.watcher = null;
+			}
+		};
 	}, _temp;
 };
 //# sourceMappingURL=index.js.map
