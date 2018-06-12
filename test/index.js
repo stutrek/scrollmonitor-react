@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { ScrollContainer, Watch } from 'scrollmonitor-react/index';
+import { ScrollContainer, Watch } from 'scrollmonitor-react';
 
 class Box extends React.Component {
 	render () {
