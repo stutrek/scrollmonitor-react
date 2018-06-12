@@ -34,20 +34,31 @@ export const ScrollContainer = (Component) => class ScrollMonitorContainer exten
 export const Watch = (Component) => class WatchedComponent extends React.Component {
 	static propTypes = {
 		autoStart: PropTypes.bool,
+		initialRender: PropTypes.shape({
+			isInViewport: PropTypes.bool,
+			isAboveViewport: PropTypes.bool,
+			isBelowViewport: PropTypes.bool,
+			isFullyInViewport: PropTypes.bool
+		})
 	};
 
 	static defaultProps = {
 		autoStart: true,
-	};
-
-	constructor () {
-		super();
-
-		this.state = {
+		initialRender: {
 			isInViewport: false,
 			isAboveViewport: false,
 			isBelowViewport: false,
 			isFullyInViewport: false
+		}
+	};
+
+	constructor (props) {
+		super(props);
+		this.state = {
+			isInViewport: this.props.initialRender.isInViewport,
+			isAboveViewport: this.props.initialRender.isAboveViewport,
+			isBelowViewport: this.props.initialRender.isBelowViewport,
+			isFullyInViewport: this.props.initialRender.isFullyInViewport
 		};
 	}
 
