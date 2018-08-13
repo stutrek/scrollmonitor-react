@@ -21,6 +21,10 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _hoistNonReactStatics = require('hoist-non-react-statics');
+
+var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
+
 var _scrollmonitor = require('scrollmonitor');
 
 var _scrollmonitor2 = _interopRequireDefault(_scrollmonitor);
@@ -34,7 +38,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var ScrollContainer = exports.ScrollContainer = function ScrollContainer(Component) {
-	return function (_React$Component) {
+	var ScrollMonitorContainer = function (_React$Component) {
 		_inherits(ScrollMonitorContainer, _React$Component);
 
 		function ScrollMonitorContainer() {
@@ -72,6 +76,8 @@ var ScrollContainer = exports.ScrollContainer = function ScrollContainer(Compone
 
 		return ScrollMonitorContainer;
 	}(_react2.default.Component);
+
+	return (0, _hoistNonReactStatics2.default)(ScrollMonitorContainer, Component);
 };
 
 var Watch = exports.Watch = function Watch(Component) {
@@ -238,5 +244,6 @@ var Watch = exports.Watch = function Watch(Component) {
 			}
 		};
 	}, _temp;
+	return (0, _hoistNonReactStatics2.default)(WatchedComponent, Component);
 };
 //# sourceMappingURL=index.js.map
