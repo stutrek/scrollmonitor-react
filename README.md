@@ -2,6 +2,8 @@
 
 This is a React component that provides an API to the [scrollMonitor](https://github.com/stutrek/scrollMonitor). It lets you create both watchers and scroll containers.
 
+There is now a [React hooks](https://github.com/stutrek/scrollmonitor-hooks) version.
+
 It adds all the boolean properties from a watcher to `this.props` and takes all the method properties as properties.
 
 Scrollmonitor-react is two higher order components. They're functions that you pass an original component and receive a new component that adds functionality to the original.
