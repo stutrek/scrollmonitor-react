@@ -104,7 +104,7 @@ export const Watch = (Component) => {
 			}
 		}
 
-		componentWillReceiveProps (nextProps) {
+		UNSAFE_componentWillReceiveProps (nextProps) {
 			if (this.props.scrollContainer !== nextProps.scrollContainer) {
 				this.stopWatcher();
 				this.startWatcher(nextProps);
