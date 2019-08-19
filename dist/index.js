@@ -146,8 +146,8 @@ var Watch = exports.Watch = function Watch(Component) {
 				}
 			}
 		}, {
-			key: 'componentWillReceiveProps',
-			value: function componentWillReceiveProps(nextProps) {
+			key: 'UNSAFE_componentWillReceiveProps',
+			value: function UNSAFE_componentWillReceiveProps(nextProps) {
 				var _this4 = this;
 
 				if (this.props.scrollContainer !== nextProps.scrollContainer) {
